@@ -1,0 +1,14 @@
+#app-main {
+  padding: 12px;
+}
+
+#start-btn {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+#count {
+  display: inline-block;
+  font-weight: bold;
+  vertical-align: middle;
+}

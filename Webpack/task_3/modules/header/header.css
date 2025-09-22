@@ -1,0 +1,21 @@
+/* Header styles for Task 3 */
+#app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+#logo {
+  width: 200px;
+  height: 200px;
+  background-image: url('../../assets/holberton-logo.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 200px 200px;
+}
+
+#app-header h1 {
+  font-size: 24px;
+  margin: 0;
+}
