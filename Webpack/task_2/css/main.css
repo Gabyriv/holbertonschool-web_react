@@ -1,0 +1,25 @@
+/* Styles for Task 2 */
+
+/* Place the counter text to the right of the button and make it bold */
+#count {
+  display: inline-block; /* allow it to sit on the same line as the button */
+  font-weight: bold;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* Ensure the button is inline so #count can appear to its right */
+button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Logo box styled with the provided background image */
+#logo {
+  width: 200px;
+  height: 200px;
+  background-image: url('../assets/holberton-logo.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 200px 200px; /* ensure 200x200 */
+}

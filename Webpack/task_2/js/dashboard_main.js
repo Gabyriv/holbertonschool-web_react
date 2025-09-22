@@ -11,14 +11,13 @@ $(function () {
 
 export default function updateCounter() {
   let count = 0;
-  const button = document.querySelector("button");
-  button.addEventListener(
+  // Use event delegation so it works even if the button is added later
+  $(document).on(
     "click",
+    "button",
     _.debounce(() => {
       count++;
-      document.getElementById(
-        "count"
-      ).textContent = `${count} clicks on the button`;
+      $("#count").text(`${count} clicks on the button`);
     }, 500)
   );
 }
