@@ -9,7 +9,7 @@ describe("Footer component", () => {
     const footerCopy = screen.getByText(/copyright/i);
     expect(footerCopy).toBeInTheDocument();
     const expectedText = `Copyright ${getCurrentYear()} - ${getFooterCopy(
-      false
+      true
     )}`;
     expect(footerCopy).toHaveTextContent(expectedText);
   });
