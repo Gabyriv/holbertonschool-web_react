@@ -1,0 +1,14 @@
+.App-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.App-header img {
+  width: 300px;
+  height: 300px;
+}
+
+.App-header h1 {
+  color: #e1003c;
+}
