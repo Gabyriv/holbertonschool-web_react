@@ -14,11 +14,12 @@ describe("App component", () => {
   test("matches the text content in the dashboard body and footer", () => {
     render(<App />);
     const bodyCopy = screen.getByText(/login to access the full dashboard/i);
-    const footerCopy = screen.getByText((content) =>
-      /copyright\s+\d+\s+-\s+holberton school/i.test(content)
-    );
+    const footerCopy = screen.getByText(/copyright/i);
     expect(bodyCopy).toBeInTheDocument();
-    expect(footerCopy).toBeInTheDocument();
+    const currentYear = new Date().getFullYear();
+    expect(footerCopy).toHaveTextContent(
+      new RegExp(`^Copyright\\s+${currentYear}\\s+-\\s+Holberton School$`, "i")
+    );
   });
 
   test("renders the Holberton logo image", () => {
