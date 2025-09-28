@@ -8,7 +8,9 @@ describe("Footer component", () => {
     render(<Footer />);
     const footerCopy = screen.getByText(/copyright/i);
     expect(footerCopy).toBeInTheDocument();
-    const expectedText = `Copyright ${getCurrentYear()} - ${getFooterCopy(true)}`;
+    const expectedText = `Copyright ${getCurrentYear()} - ${getFooterCopy(
+      false
+    )}`;
     expect(footerCopy).toHaveTextContent(expectedText);
   });
 });
