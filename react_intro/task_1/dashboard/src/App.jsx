@@ -1,7 +1,7 @@
 import "./App.css";
 import Notifications from "./Notifications";
 import holbertonLogo from "./assets/holberton-logo.jpg";
-import { getCurrentYear, getFooter } from "./utils";
+import { getCurrentYear, getFooterCopy } from "./utils";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
       <div className="red-line" />
       <div className="App-footer">
         <p>
-          Copyright {getCurrentYear()} {getFooter()}
+          Copyright {getCurrentYear()} {getFooterCopy()}
         </p>
       </div>
     </div>
