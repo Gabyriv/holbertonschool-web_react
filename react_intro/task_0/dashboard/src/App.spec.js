@@ -21,7 +21,7 @@ describe("App component", () => {
 
   test("renders the Holberton logo image", () => {
     render(<App />);
-    const logo = screen.getByRole("img", { name: /holberton-logo/i });
+    const logo = screen.getByRole("img", { name: /holberton logo/i });
     expect(logo).toBeInTheDocument();
   });
 });
