@@ -25,6 +25,18 @@
   flex: 1;
 }
 
+.App-body label {
+  margin-right: 10px;
+}
+
+.App-body input {
+  margin-right: 10px;
+}
+
+.App-body button {
+  margin-left: 10px;
+}
+
 /* ======= App-footer ======= */
 .App-footer {
   text-align: center;

@@ -25,7 +25,7 @@ function App() {
       <div className="red-line" />
       <div className="App-footer">
         <p>
-          Copyright {getCurrentYear()} - {getFooterCopy(true)}
+          Copyright {getCurrentYear()} - {getFooterCopy(false)}
         </p>
       </div>
     </div>

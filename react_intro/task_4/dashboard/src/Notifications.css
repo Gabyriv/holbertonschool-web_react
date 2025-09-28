@@ -34,6 +34,13 @@
 }
 
 .notification-items li[data-priority="urgent"] {
-  color: #e1003c;
-  font-weight: 600;
+  color: #ff5151;
+}
+
+.notification-items li:last-child {
+  color: #ff5151;
+}
+
+.notification-items li:last-child strong {
+  color: #f00;
 }
