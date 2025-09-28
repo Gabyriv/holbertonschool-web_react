@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Login from "./Login";
 
 describe("Login component", () => {
@@ -12,14 +12,14 @@ describe("Login component", () => {
 
   // The form should include two labels, two inputs, and one button.
   test("renders 2 labels, 2 inputs, and 1 button", () => {
-    const { container } = render(<Login />);
-    const formElement = container.querySelector(".App-body") ?? container;
-    const labels = formElement.querySelectorAll("label");
-    const inputs = formElement.querySelectorAll("input");
-    expect(labels.length).toBe(2);
-    expect(inputs.length).toBe(2);
-    const submitButton = within(formElement).getByRole("button", { name: /ok/i });
-    expect(submitButton).toBeInTheDocument();
+    render(<Login />);
+    const labels = screen.getAllByText(/(email|password):/i);
+    const inputs = screen.getAllByLabelText(/email|password/i);
+    const buttons = screen.getAllByRole("button");
+    expect(labels).toHaveLength(2);
+    expect(inputs).toHaveLength(2);
+    expect(buttons).toHaveLength(1);
+    expect(buttons[0]).toHaveTextContent(/ok/i);
   });
 
   // Clicking the label should focus the associated input for accessibility.
