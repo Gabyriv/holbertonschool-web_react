@@ -28,23 +28,34 @@ describe("App component", () => {
     expect(logo).toBeInTheDocument();
   });
 
-  test("renders the two input fields one for email and the other for password", () => {
-    render(<App />);
+  // Inputs: ensure there are exactly 2 inputs, one for email and one for password
+  test("renders exactly 2 input elements: email and password", () => {
+    const { container } = render(<App />);
+    const inputs = container.querySelectorAll("input");
+    expect(inputs.length).toBe(2);
+
+    // Find by accessible label text (case-insensitive)
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
+
     expect(emailInput.tagName.toLowerCase()).toBe("input");
     expect(passwordInput.tagName.toLowerCase()).toBe("input");
   });
 
-  test("renders the two label elements with the text 'Email' and 'Password'", () => {
-    render(<App />);
-    const emailLabel = screen.getByText(/email/i);
-    const passwordLabel = screen.getByText(/password/i);
-    expect(emailLabel).toBeInTheDocument();
-    expect(passwordLabel).toBeInTheDocument();
+  // Labels: ensure there are exactly 2 label elements with the expected texts
+  test("renders exactly 2 label elements with text Email and Password", () => {
+    const { container } = render(<App />);
+    const labels = Array.from(container.querySelectorAll("label"));
+    expect(labels.length).toBe(2);
+
+    // Check texts with case-insensitive regex
+    const labelTexts = labels.map((l) => l.textContent?.trim() || "");
+    expect(labelTexts.some((t) => /email/i.test(t))).toBe(true);
+    expect(labelTexts.some((t) => /password/i.test(t))).toBe(true);
   });
 
-  test("renders the button element with the text 'OK'", () => {
+  // Button: ensure a button with text OK exists
+  test("renders a button with the text 'OK'", () => {
     render(<App />);
     const button = screen.getByRole("button", { name: /ok/i });
     expect(button).toBeInTheDocument();
