@@ -7,7 +7,7 @@ describe("NotificationItem component", () => {
     const listItem = screen.getByText(/test default/i);
     expect(listItem).toBeInTheDocument();
     expect(listItem).toHaveAttribute("data-notification-type", "default");
-    expect(listItem).toHaveStyle({ color: "#1d56d8" });
+    expect(listItem).toHaveStyle({ color: "rgb(0, 0, 255)" });
   });
 
   test("renders urgent notification with red text and correct data attribute", () => {
@@ -15,6 +15,6 @@ describe("NotificationItem component", () => {
     const listItem = screen.getByText(/test urgent/i);
     expect(listItem).toBeInTheDocument();
     expect(listItem).toHaveAttribute("data-notification-type", "urgent");
-    expect(listItem).toHaveStyle({ color: "#ff5151" });
+    expect(listItem).toHaveStyle({ color: "rgb(255, 0, 0)" });
   });
 });
