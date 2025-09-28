@@ -17,12 +17,12 @@ function App() {
       },
       {
         id: baseId + 1,
-        type: "urgent",
+        type: "default",
         value: "New resume available",
       },
       {
         id: baseId + 2,
-        type: "urgent",
+        type: "default",
         html: { __html: getLatestNotification() },
       },
     ];
