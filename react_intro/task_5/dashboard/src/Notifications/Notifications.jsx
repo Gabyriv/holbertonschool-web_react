@@ -1,5 +1,5 @@
 import "./Notifications.css";
-import closeButton from "../assets/close-icon.png";
+import closeButton from "../assets/close-button.png";
 import { getLatestNotification } from "../utils/utils.js";
 
 function Notifications() {
@@ -13,7 +13,11 @@ function Notifications() {
           console.log("Close button has been clicked");
         }}
       >
-        <img className="notification-close-icon" src={closeButton} alt="Close" />
+        <img
+          className="notification-close-icon"
+          src={closeButton}
+          alt="Close"
+        />
       </button>
       <p>Here is the list of notifications</p>
       <ul>
