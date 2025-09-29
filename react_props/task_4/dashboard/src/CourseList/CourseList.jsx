@@ -16,7 +16,9 @@ function CourseList({ courses = [] }) {
       </thead>
       <tbody>
         {courses.length === 0 ? (
-          <CourseListRow isHeader={true} textFirstCell="No course available yet" />
+          <tr>
+            <td colSpan={2}>No course available yet</td>
+          </tr>
         ) : (
           courses.map((c) => (
             <CourseListRow
