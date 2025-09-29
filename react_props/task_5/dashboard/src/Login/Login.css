@@ -1,0 +1,15 @@
+.App-body {
+  flex: 1;
+}
+
+.App-body label {
+  margin-right: 10px;
+}
+
+.App-body input {
+  margin-right: 10px;
+}
+
+.App-body button {
+  margin-left: 10px;
+}
