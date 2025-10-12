@@ -5,6 +5,8 @@ import Header from "../Header/Header.jsx";
 import Login from "../Login/Login.jsx";
 import Footer from "../Footer/Footer.jsx";
 import CourseList from "../CourseList/CourseList.jsx";
+import BodySectionWithMarginBottom from "../BodySectionWithMarginBottom/BodySectionWithMarginBottom.jsx";
+import BodySection from "../BodySection/BodySection.jsx";
 import { getLatestNotification } from "../utils/utils.js";
 
 class App extends Component {
@@ -64,7 +66,18 @@ class App extends Component {
           </div>
           <Header />
           <div className="red-line" />
-          {isLoggedIn ? <CourseList courses={coursesList} /> : <Login />}
+          {isLoggedIn ? (
+            <BodySectionWithMarginBottom title="Course list">
+              <CourseList courses={coursesList} />
+            </BodySectionWithMarginBottom>
+          ) : (
+            <BodySectionWithMarginBottom title="Log in to continue">
+              <Login />
+            </BodySectionWithMarginBottom>
+          )}
+          <BodySection title="News from the School">
+            <p>Holberton School News goes here</p>
+          </BodySection>
           <div className="red-line" />
           <Footer />
         </Fragment>

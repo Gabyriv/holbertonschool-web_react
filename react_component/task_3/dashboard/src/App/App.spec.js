@@ -84,4 +84,17 @@ describe("App component", () => {
     // Clean up the mock
     alertMock.mockRestore();
   });
+
+  // Test that News from the School section is displayed by default
+  test("displays News from the School section with correct content", () => {
+    render(<App />);
+
+    // Check for the title "News from the School"
+    const newsTitle = screen.getByText(/news from the school/i);
+    expect(newsTitle).toBeInTheDocument();
+
+    // Check for the paragraph with the news content
+    const newsContent = screen.getByText(/holberton school news goes here/i);
+    expect(newsContent).toBeInTheDocument();
+  });
 });
