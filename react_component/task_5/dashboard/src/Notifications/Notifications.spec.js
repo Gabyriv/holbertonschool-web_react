@@ -95,4 +95,71 @@ describe("Notifications component", () => {
 
     consoleSpy.mockRestore();
   });
+
+  test("doesn't re-render when notifications list length remains the same", () => {
+    // Spy on the render method to track re-renders
+    const renderSpy = jest.spyOn(Notifications.prototype, "render");
+
+    const initialNotifications = [
+      { id: 1, type: "default", value: "First notification" },
+      { id: 2, type: "urgent", value: "Second notification" },
+    ];
+
+    // Initial render
+    const { rerender } = render(
+      <Notifications notifications={initialNotifications} displayDrawer={true} />
+    );
+
+    // Clear the spy after initial render
+    renderSpy.mockClear();
+
+    // Update with different notifications but SAME length
+    const updatedNotifications = [
+      { id: 3, type: "default", value: "Third notification" },
+      { id: 4, type: "urgent", value: "Fourth notification" },
+    ];
+
+    rerender(
+      <Notifications notifications={updatedNotifications} displayDrawer={true} />
+    );
+
+    // render should NOT have been called because length is the same (2 items)
+    expect(renderSpy).not.toHaveBeenCalled();
+
+    renderSpy.mockRestore();
+  });
+
+  test("re-renders when notifications list length changes", () => {
+    // Spy on the render method to track re-renders
+    const renderSpy = jest.spyOn(Notifications.prototype, "render");
+
+    const initialNotifications = [
+      { id: 1, type: "default", value: "First notification" },
+      { id: 2, type: "urgent", value: "Second notification" },
+    ];
+
+    // Initial render
+    const { rerender } = render(
+      <Notifications notifications={initialNotifications} displayDrawer={true} />
+    );
+
+    // Clear the spy after initial render
+    renderSpy.mockClear();
+
+    // Update with DIFFERENT length (3 items instead of 2)
+    const updatedNotifications = [
+      { id: 1, type: "default", value: "First notification" },
+      { id: 2, type: "urgent", value: "Second notification" },
+      { id: 3, type: "default", value: "Third notification" },
+    ];
+
+    rerender(
+      <Notifications notifications={updatedNotifications} displayDrawer={true} />
+    );
+
+    // render SHOULD have been called because length changed (2 -> 3)
+    expect(renderSpy).toHaveBeenCalled();
+
+    renderSpy.mockRestore();
+  });
 });
