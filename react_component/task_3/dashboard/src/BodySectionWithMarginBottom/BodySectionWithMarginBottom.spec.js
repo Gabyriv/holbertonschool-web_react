@@ -3,7 +3,7 @@ import BodySectionWithMarginBottom from "./BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
 
 describe("BodySectionWithMarginBottom component", () => {
-  test("contains a div with the class bodySectionWithMarginBottom", () => {
+  test("contains a div with the class bodySectionWithMargin", () => {
     const { container } = render(
       <BodySectionWithMarginBottom title="test title">
         <p>test children node</p>
@@ -11,7 +11,7 @@ describe("BodySectionWithMarginBottom component", () => {
     );
 
     // Check that the div with the correct class exists
-    const divWithClass = container.querySelector(".bodySectionWithMarginBottom");
+    const divWithClass = container.querySelector(".bodySectionWithMargin");
     expect(divWithClass).toBeInTheDocument();
   });
 
