@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 
 // Renders a single table row for the CourseList
 function CourseListRow({ isHeader = false, textFirstCell = "", textSecondCell = null }) {
-  // Conditional styling: header rows get --color-table-header with 66% opacity, regular rows get --color-table-rows with 45% opacity
-  const rowStyle = isHeader 
-    ? "bg-[var(--color-table-header)] opacity-66" 
-    : "bg-[var(--color-table-rows)] opacity-45";
+  // Conditional styling: header rows get 66% mix of header color, regular rows get 45% mix of row color
+  const rowStyle = isHeader
+    ? "bg-[color:color-mix(in_srgb,var(--color-table-header)_66%,transparent)]"
+    : "bg-[color:color-mix(in_srgb,var(--color-table-rows)_45%,transparent)]";
   
   // Border and padding classes for table cells
   const cellClasses = "border border-gray-400";

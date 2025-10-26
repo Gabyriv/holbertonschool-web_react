@@ -10,6 +10,11 @@
 
 /* Use Tailwind's layer system to set Roboto as default font */
 @layer base {
+  :root {
+    --color-table-header-soft: color-mix(in srgb, var(--color-table-header) 66%, transparent 34%);
+    --color-table-rows-soft: color-mix(in srgb, var(--color-table-rows) 45%, transparent 55%);
+  }
+
   body {
     font-family: var(--font-family-sans);
   }
