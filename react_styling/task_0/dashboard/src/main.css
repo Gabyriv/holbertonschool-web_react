@@ -1,0 +1,14 @@
+/* Import TailwindCSS v4 */
+@import "tailwindcss";
+
+/* Theme configuration - Define Roboto font family */
+@theme {
+  --font-family-sans: "Roboto", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Use Tailwind's layer system to set Roboto as default font */
+@layer base {
+  body {
+    font-family: var(--font-family-sans);
+  }
+}

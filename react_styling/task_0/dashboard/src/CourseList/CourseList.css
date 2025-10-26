@@ -1,0 +1,19 @@
+.CourseList {
+  width: 90%;
+  margin: 24px auto;
+  border-collapse: collapse;
+}
+
+.CourseList thead th {
+  border: 1px solid #c8c8c8;
+  padding: 6px 8px;
+}
+
+.CourseList tbody td {
+  border: 1px solid #c8c8c8;
+  padding: 4px 8px;
+}
+
+.CourseList thead tr:first-child th {
+  text-align: center;
+}
