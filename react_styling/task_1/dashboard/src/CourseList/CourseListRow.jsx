@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 
 // Renders a single table row for the CourseList
 function CourseListRow({ isHeader = false, textFirstCell = "", textSecondCell = null }) {
-  // Conditional styling: header rows get #deb5b5 with hex opacity 66, regular rows get #CDCDCD with hex opacity 45
-  // Using 8-digit hex color format where last 2 digits represent alpha channel
-  const rowBgColor = isHeader ? "#deb5b566" : "#CDCDCD45";
+  // Conditional styling: header rows get #deb5b5 with 66% opacity, regular rows get #CDCDCD with 45% opacity
+  // Using 8-digit hex color format where last 2 digits represent alpha channel (66% = A8, 45% = 73)
+  const rowBgColor = isHeader ? "#deb5b5A8" : "#CDCDCD73";
   
   // Border and padding classes for table cells
   // All cells get gray-400 border, td and th elements get 8px left padding
