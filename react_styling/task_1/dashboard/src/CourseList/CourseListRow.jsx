@@ -2,25 +2,13 @@ import PropTypes from "prop-types";
 
 // Renders a single table row for the CourseList
 function CourseListRow({ isHeader = false, textFirstCell = "", textSecondCell = null }) {
-  // Conditional styling: header rows get --color-table-header with 66% opacity, regular rows get --color-table-rows with 45% opacity
-  // Convert hex colors to rgba with opacity
-  const headerColor = "#deb5b5";
-  const rowColor = "#CDCDCD";
-  
-  const hexToRgba = (hex, opacity) => {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-  };
-  
-  const rowBgColor = isHeader 
-    ? hexToRgba(headerColor, 0.66) 
-    : hexToRgba(rowColor, 0.45);
+  // Conditional styling: header rows get #deb5b5 with hex opacity 66, regular rows get #CDCDCD with hex opacity 45
+  // Using 8-digit hex color format where last 2 digits represent alpha channel
+  const rowBgColor = isHeader ? "#deb5b566" : "#CDCDCD45";
   
   // Border and padding classes for table cells
-  const cellClasses = "border border-gray-400";
-  const tdClasses = `${cellClasses} pl-2`; // pl-2 = 8px padding left
+  // All cells get gray-400 border, td and th elements get 8px left padding
+  const cellClasses = "border border-gray-400 pl-2"; // pl-2 = 8px padding left
 
   if (isHeader) {
     if (textSecondCell == null) {
@@ -40,8 +28,8 @@ function CourseListRow({ isHeader = false, textFirstCell = "", textSecondCell = 
 
   return (
     <tr style={{ backgroundColor: rowBgColor }}>
-      <td className={tdClasses}>{textFirstCell}</td>
-      <td className={tdClasses}>{textSecondCell}</td>
+      <td className={cellClasses}>{textFirstCell}</td>
+      <td className={cellClasses}>{textSecondCell}</td>
     </tr>
   );
 }
