@@ -30,7 +30,7 @@ class App extends Component {
   };
 
   render() {
-    const { isLoggedIn = false } = this.props;
+    const { isLoggedIn = true } = this.props;
     const notificationsList = [
       {
         id: Date.now(),
@@ -49,12 +49,12 @@ class App extends Component {
       },
     ];
 
-    const coursesList = [];
-    // const coursesList = [
-    //   { id: 1, name: "ES6", credit: 60 },
-    //   { id: 2, name: "Webpack", credit: 20 },
-    //   { id: 3, name: "React", credit: 40 },
-    // ];
+    // const coursesList = [];
+    const coursesList = [
+      { id: 1, name: "ES6", credit: 60 },
+      { id: 2, name: "Webpack", credit: 20 },
+      { id: 3, name: "React", credit: 40 },
+    ];
 
     return (
       <div className="App">
