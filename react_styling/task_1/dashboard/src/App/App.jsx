@@ -30,7 +30,7 @@ class App extends Component {
   };
 
   render() {
-    const { isLoggedIn = true } = this.props;
+    const { isLoggedIn = false } = this.props;
     const notificationsList = [
       {
         id: Date.now(),
