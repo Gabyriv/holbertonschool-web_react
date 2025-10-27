@@ -31,24 +31,24 @@ class App extends Component {
 
   render() {
     const { isLoggedIn = false } = this.props;
-    const notificationsList = [];
-    // const notificationsList = [
-    //   {
-    //     id: Date.now(),
-    //     type: "urgent",
-    //     value: "New course available",
-    //   },
-    //   {
-    //     id: Date.now() + 1,
-    //     type: "default",
-    //     value: "New resume available",
-    //   },
-    //   {
-    //     id: Date.now() + 2,
-    //     type: "default",
-    //     html: { __html: getLatestNotification() },
-    //   },
-    // ];
+    // const notificationsList = [];
+    const notificationsList = [
+      {
+        id: Date.now(),
+        type: "urgent",
+        value: "New course available",
+      },
+      {
+        id: Date.now() + 1,
+        type: "default",
+        value: "New resume available",
+      },
+      {
+        id: Date.now() + 2,
+        type: "default",
+        html: { __html: getLatestNotification() },
+      },
+    ];
 
     const coursesList = [];
     // const coursesList = [
