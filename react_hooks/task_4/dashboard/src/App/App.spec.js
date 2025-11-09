@@ -1,43 +1,85 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
+import mockAxios from "jest-mock-axios";
 
 describe("App component", () => {
+  // Clean up any pending axios mocks after each test
+  afterEach(() => {
+    mockAxios.reset();
+  });
+
+  // Helper function to mock notifications data
+  const mockNotificationsResponse = () => {
+    const notificationsData = [
+      { id: 1, type: "urgent", value: "New course available" },
+      { id: 2, type: "default", value: "New resume available" },
+    ];
+    mockAxios.mockResponse({ data: notificationsData });
+  };
+
+  // Helper function to mock courses data
+  const mockCoursesResponse = () => {
+    const coursesData = [
+      { id: 1, name: "ES6", credit: 60 },
+      { id: 2, name: "Webpack", credit: 20 },
+      { id: 3, name: "React", credit: 40 },
+    ];
+    mockAxios.mockResponse({ data: coursesData });
+  };
+
   // Integration: the App shell should mount the notifications panel.
-  test("renders the notifications component", () => {
+  test("renders the notifications component", async () => {
     render(<App />);
+    
+    // Mock the notifications API call
+    mockNotificationsResponse();
     // The notifications title should always be visible
     const notificationsTitle = screen.getByText(/your notifications/i);
     expect(notificationsTitle).toBeInTheDocument();
     
-    // The drawer content should be visible by default (displayDrawer starts as true)
-    expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
+    // Wait for notifications to load
+    await waitFor(() => {
+      expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
+    });
   });
 
   // Integration: the App shell should mount the header component.
-  test("renders the header component", () => {
+  test("renders the header component", async () => {
     render(<App />);
+    
+    // Mock the notifications API call
+    mockNotificationsResponse();
     const heading = screen.getByRole("heading", { name: /school dashboard/i });
     expect(heading).toBeInTheDocument();
   });
 
   // Integration: the App shell should mount the login component.
-  test("renders the login component", () => {
+  test("renders the login component", async () => {
     render(<App />);
+    
+    // Mock the notifications API call
+    mockNotificationsResponse();
     const loginPrompt = screen.getByText(/login to access the full dashboard/i);
     expect(loginPrompt).toBeInTheDocument();
   });
 
   // Integration: the App shell should mount the footer component.
-  test("renders the footer component", () => {
+  test("renders the footer component", async () => {
     render(<App />);
+    
+    // Mock the notifications API call
+    mockNotificationsResponse();
     const footerCopy = screen.getByText(/copyright/i);
     expect(footerCopy).toBeInTheDocument();
   });
 
   // Conditional rendering: when not logged in, show Login and not CourseList
-  test("renders Login when user is not logged in (default state)", () => {
+  test("renders Login when user is not logged in (default state)", async () => {
     render(<App />);
+    
+    // Mock the notifications API call
+    mockNotificationsResponse();
     expect(screen.getByText(/login to access the full dashboard/i)).toBeInTheDocument();
     // Table for courses should not be present
     const tables = screen.queryAllByRole("table");
@@ -48,6 +90,9 @@ describe("App component", () => {
   test("renders CourseList and hides Login when user state changes to logged in", async () => {
     const user = userEvent.setup();
     render(<App />);
+    
+    // Mock the notifications API call
+    mockNotificationsResponse();
     
     // Initially, Login should be visible and CourseList should not
     expect(screen.getByText(/login to access the full dashboard/i)).toBeInTheDocument();
@@ -65,6 +110,9 @@ describe("App component", () => {
     // Submit the form to trigger state change
     await user.click(submitButton);
     
+    // Mock the courses API call that happens after login
+    mockCoursesResponse();
+    
     // After state changes, CourseList should be visible and Login should not
     const table = await screen.findByRole("table");
     expect(table).toBeInTheDocument();
@@ -77,6 +125,9 @@ describe("App component", () => {
     const user = userEvent.setup();
     render(<App />);
     
+    // Mock the notifications API call
+    mockNotificationsResponse();
+    
     // First, log in
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
@@ -85,6 +136,9 @@ describe("App component", () => {
     await user.type(emailInput, "test@example.com");
     await user.type(passwordInput, "password123");
     await user.click(submitButton);
+    
+    // Mock the courses API call that happens after login
+    mockCoursesResponse();
     
     // Verify user is logged in
     const table = await screen.findByRole("table");
@@ -111,8 +165,13 @@ describe("App component", () => {
     const user = userEvent.setup();
     render(<App />);
 
+    // Mock the notifications API call
+    mockNotificationsResponse();
+
     // Initially, drawer should be open (displayDrawer starts as true)
-    expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
+    });
 
     // Close the drawer first by clicking the close button
     const closeButton = screen.getByRole("button", { name: /close/i });
@@ -134,8 +193,13 @@ describe("App component", () => {
     const user = userEvent.setup();
     render(<App />);
 
+    // Mock the notifications API call
+    mockNotificationsResponse();
+
     // Initially, drawer should be open (displayDrawer starts as true)
-    expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
+    });
 
     // Click the close button
     const closeButton = screen.getByRole("button", { name: /close/i });
@@ -149,6 +213,9 @@ describe("App component", () => {
   test("logIn updates user state with email, password, and isLoggedIn set to true", async () => {
     const user = userEvent.setup();
     render(<App />);
+
+    // Mock the notifications API call
+    mockNotificationsResponse();
 
     // Initially, user should not be logged in - Login form should be visible
     expect(screen.getByText(/login to access the full dashboard/i)).toBeInTheDocument();
@@ -166,6 +233,9 @@ describe("App component", () => {
     await user.type(passwordInput, testPassword);
     await user.click(submitButton);
 
+    // Mock the courses API call that happens after login
+    mockCoursesResponse();
+
     // Verify user is logged in - CourseList should be visible, Login should not
     const table = await screen.findByRole("table");
     expect(table).toBeInTheDocument();
@@ -181,6 +251,9 @@ describe("App component", () => {
     const user = userEvent.setup();
     render(<App />);
 
+    // Mock the notifications API call
+    mockNotificationsResponse();
+
     // First, log in
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
@@ -189,6 +262,9 @@ describe("App component", () => {
     await user.type(emailInput, "test@example.com");
     await user.type(passwordInput, "password123");
     await user.click(submitButton);
+
+    // Mock the courses API call that happens after login
+    mockCoursesResponse();
 
     // Verify user is logged in
     const table = await screen.findByRole("table");
@@ -208,8 +284,11 @@ describe("App component", () => {
   });
 
   // Test that News from the School section is displayed by default
-  test("displays News from the School section with correct content", () => {
+  test("displays News from the School section with correct content", async () => {
     render(<App />);
+
+    // Mock the notifications API call
+    mockNotificationsResponse();
 
     // Check for the title "News from the School"
     const newsTitle = screen.getByText(/news from the school/i);
@@ -226,11 +305,10 @@ describe("App component", () => {
     const consoleSpy = jest.spyOn(console, "log");
     render(<App />);
 
-    // First, open the notifications drawer
-    const notificationsTitle = screen.getByText(/your notifications/i);
-    await user.click(notificationsTitle);
+    // Mock the notifications API call
+    mockNotificationsResponse();
 
-    // Wait for drawer to open and get all notification items
+    // Wait for drawer to open (starts open by default) and get all notification items
     const items = await screen.findAllByRole("listitem");
     const initialCount = items.length;
     expect(initialCount).toBe(3); // Should have 3 notifications initially
@@ -248,5 +326,54 @@ describe("App component", () => {
 
     // Clean up
     consoleSpy.mockRestore();
+  });
+
+  // Test that notifications data is fetched when App component loads
+  test("fetches notifications data when component loads", async () => {
+    render(<App />);
+
+    // Verify that axios.get was called for notifications
+    expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json');
+
+    // Mock the response
+    mockNotificationsResponse();
+
+    // Wait for notifications to appear
+    await waitFor(() => {
+      const items = screen.queryAllByRole("listitem");
+      expect(items.length).toBe(3); // 2 from API + 1 latest notification
+    });
+  });
+
+  // Test that courses data is fetched when user state changes
+  test("fetches courses data when user logs in", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    // Mock the notifications API call
+    mockNotificationsResponse();
+
+    // Log in
+    const emailInput = screen.getByLabelText(/email/i);
+    const passwordInput = screen.getByLabelText(/password/i);
+    const submitButton = screen.getByRole("button", { name: /ok/i });
+
+    await user.type(emailInput, "test@example.com");
+    await user.type(passwordInput, "password123");
+    await user.click(submitButton);
+
+    // Verify that axios.get was called for courses after login
+    await waitFor(() => {
+      expect(mockAxios.get).toHaveBeenCalledWith('/courses.json');
+    });
+
+    // Mock the courses response
+    mockCoursesResponse();
+
+    // Wait for courses to appear
+    await waitFor(() => {
+      const table = screen.getByRole("table");
+      expect(table).toBeInTheDocument();
+    });
   });
 });

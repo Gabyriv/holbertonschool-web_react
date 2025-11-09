@@ -1,4 +1,5 @@
-import { Fragment, useState, useCallback, useMemo } from "react";
+import { Fragment, useState, useCallback, useMemo, useEffect } from "react";
+import axios from "axios";
 import Notifications from "../Notifications/Notifications.jsx";
 import Header from "../Header/Header.jsx";
 import Login from "../Login/Login.jsx";
@@ -11,6 +12,7 @@ import AppContext from "../Context/context.js";
 
 // App component - Main application component managing global state and layout
 // Converted to functional component using React hooks for state management
+// Now uses dynamic data fetching with axios and useEffect
 function App() {
   // Initialize state using React hooks
   // displayDrawer controls whether the notifications drawer is visible
@@ -23,27 +25,58 @@ function App() {
     isLoggedIn: false,
   });
   
-  // notifications holds the list of current notifications
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      type: "urgent",
-      value: "New course available",
-    },
-    {
-      id: 2,
-      type: "default",
-      value: "New resume available",
-    },
-    {
-      id: 3,
-      type: "default",
-      html: { __html: getLatestNotification() },
-    },
-  ]);
+  // notifications holds the list of current notifications (fetched dynamically)
+  const [notifications, setNotifications] = useState([]);
 
-  // courses state for future use
-  const courses = [];
+  // courses holds the list of available courses (fetched dynamically)
+  const [courses, setCourses] = useState([]);
+
+  // Fetch notifications data when component initially renders
+  // Uses useEffect with empty dependency array to run only once on mount
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        // Fetch notifications from JSON file
+        const response = await axios.get('/notifications.json');
+        const notificationsData = response.data;
+        
+        // Add the latest notification with HTML content
+        const latestNotification = {
+          id: 3,
+          type: "default",
+          html: { __html: getLatestNotification() },
+        };
+        
+        // Set notifications state with fetched data plus latest notification
+        setNotifications([...notificationsData, latestNotification]);
+      } catch (error) {
+        console.error('Error fetching notifications:', error);
+      }
+    };
+
+    fetchNotifications();
+  }, []); // Empty dependency array - runs only on mount
+
+  // Fetch courses data whenever user's state changes (authentication changes)
+  // This responds to user login/logout events
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        // Only fetch courses if user is logged in
+        if (user.isLoggedIn) {
+          const response = await axios.get('/courses.json');
+          setCourses(response.data);
+        } else {
+          // Clear courses when user logs out
+          setCourses([]);
+        }
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+
+    fetchCourses();
+  }, [user]); // Dependency on user state - runs when user state changes
 
   // Handler to show the notifications drawer
   // Memoized with useCallback to maintain reference stability

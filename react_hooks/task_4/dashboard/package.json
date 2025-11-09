@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^5.2.8",
+    "axios": "^1.13.2",
+    "jest-mock-axios": "^4.9.0",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
@@ -43,6 +45,7 @@
   "jest": {
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
+      "^axios$": "jest-mock-axios",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransformer.js",
       "^.+\\.(css|less|scss)$": "identity-obj-proxy"
     },
