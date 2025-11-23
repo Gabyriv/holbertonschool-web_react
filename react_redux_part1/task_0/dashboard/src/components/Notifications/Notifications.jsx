@@ -1,6 +1,6 @@
 import { memo } from "react";
 import PropTypes from "prop-types";
-import closeButton from "../assets/close-button.png";
+import closeButton from "../../assets/close-icon.png";
 import NotificationItem from "../NotificationItem/NotificationItem.jsx";
 
 // Notifications renders the notification system with drawer functionality.
