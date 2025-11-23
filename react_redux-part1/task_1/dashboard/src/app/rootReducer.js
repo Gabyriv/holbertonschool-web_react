@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
+import notificationsReducer from '../features/notifications/notificationsSlice';
 
 /**
  * Root reducer combining all feature reducers
@@ -7,6 +8,7 @@ import authReducer from '../features/auth/authSlice';
  */
 const rootReducer = combineReducers({
   auth: authReducer,
+  notifications: notificationsReducer,
   // Add other feature reducers here as needed
 });
 
