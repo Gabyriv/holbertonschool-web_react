@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -7,8 +7,6 @@ import Notifications from './Notifications';
 import notificationsReducer, {
   fetchNotifications,
   markNotificationAsRead,
-  showDrawer,
-  hideDrawer,
 } from '../../features/notifications/notificationsSlice';
 
 /**
@@ -247,7 +245,9 @@ describe('Notifications Component', () => {
       );
 
       // Dispatch markNotificationAsRead action
-      store.dispatch(markNotificationAsRead(1));
+      act(() => {
+        store.dispatch(markNotificationAsRead(1));
+      });
 
       // Verify console.log was called
       expect(consoleSpy).toHaveBeenCalledWith('Notification 1 has been marked as read');

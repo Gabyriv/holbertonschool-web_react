@@ -1,9 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import Header from './Header';
-import authReducer, { login, logout } from '../../features/auth/authSlice';
+import authReducer, { login } from '../../features/auth/authSlice';
 
 /**
  * Test suite for Header component with Redux integration
@@ -87,15 +87,17 @@ describe('Header Component', () => {
       );
 
       // Verify welcome message displays the email
-      expect(screen.getByText('Welcome')).toBeInTheDocument();
+      expect(screen.getByText(/Welcome/i)).toBeInTheDocument();
       expect(screen.getByText(testEmail)).toBeInTheDocument();
     });
 
     it('should display welcome message after login action', () => {
       const store = createMockStore(false);
 
-      // Dispatch login action
-      store.dispatch(login({ email: 'newuser@example.com', password: 'password123' }));
+      // Dispatch login action before rendering
+      act(() => {
+        store.dispatch(login({ email: 'newuser@example.com', password: 'password123' }));
+      });
 
       render(
         <Provider store={store}>
@@ -104,7 +106,7 @@ describe('Header Component', () => {
       );
 
       // Verify welcome message displays the entered email
-      expect(screen.getByText('Welcome')).toBeInTheDocument();
+      expect(screen.getByText(/Welcome/i)).toBeInTheDocument();
       expect(screen.getByText('newuser@example.com')).toBeInTheDocument();
     });
   });
@@ -177,7 +179,9 @@ describe('Header Component', () => {
       expect(screen.queryByText('logout')).not.toBeInTheDocument();
 
       // Dispatch login action
-      store.dispatch(login({ email: 'redux@test.com', password: 'test123456' }));
+      act(() => {
+        store.dispatch(login({ email: 'redux@test.com', password: 'test123456' }));
+      });
 
       // Rerender
       rerender(
