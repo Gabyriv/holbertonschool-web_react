@@ -1,6 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
 import notificationsReducer from '../features/notifications/notificationsSlice';
+import coursesReducer from '../features/courses/coursesSlice';
 
 /**
  * Root reducer combining all feature reducers
@@ -9,7 +10,7 @@ import notificationsReducer from '../features/notifications/notificationsSlice';
 const rootReducer = combineReducers({
   auth: authReducer,
   notifications: notificationsReducer,
-  // Add other feature reducers here as needed
+  courses: coursesReducer,
 });
 
 export default rootReducer;
